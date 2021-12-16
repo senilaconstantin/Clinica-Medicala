@@ -1,29 +1,17 @@
-Drop database if exists Proiect_IS;
-CREATE SCHEMA  Proiect_IS;
-USE Proiect_IS;
+Drop database if exists ClinicaMedicala;
+CREATE SCHEMA  ClinicaMedicala;
+USE ClinicaMedicala;
 
-drop table if exists doctor;
-CREATE TABLE IF NOT EXISTS doctor (
-    idDoctor INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
-	doctorName VARCHAR(45) NOT NULL,
+drop table if exists user;
+CREATE TABLE IF NOT EXISTS user (
+    id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
+	firstName VARCHAR(45) NOT NULL,
+	lastName VARCHAR(45) NOT NULL,
+	userName VARCHAR(45) NOT NULL,
+    password VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL,
+    role VARCHAR(45) NOT NULL,
     department VARCHAR(45) NOT NULL,
-    cabinetNumber int NOT NULL,
     phoneNumber varchar(10) 
 );
 
-drop table if exists nurse;
-CREATE TABLE IF NOT EXISTS nurse (
-    idNurse INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
-	nurseName VARCHAR(45) NOT NULL,
-    department VARCHAR(45) NOT NULL,
-    phoneNumber varchar(10) NOT NULL UNIQUE
-);
-
-drop table if exists pacient;
-CREATE TABLE IF NOT EXISTS pacient (
-    idPacient INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY,
-    CNP VARCHAR(45) NOT NULL UNIQUE,
-    adress VARCHAR(45) NOT NULL ,
-	pacientName VARCHAR(45) NOT NULL,
-    phoneNumber varchar(10) NOT NULL UNIQUE	   
-);
