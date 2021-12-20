@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 public class ConnectionFactory {
     private static final Logger LOGGER = Logger.getLogger(ConnectionFactory.class.getName());
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String DBURL = "jdbc:mysql://localhost:3306/proiect_is";
+    private static final String DBURL = "jdbc:mysql://localhost:3306/ClinicaMedicala";
     private static final String USER = "root";
     private static final String PASS = "Senila1234";
 
@@ -69,5 +69,13 @@ public class ConnectionFactory {
         }
     }
 
+//    public static void main(String[] args) {
+//        ConnectionFactory connectionFactory = new ConnectionFactory();
+//        try{
+//            connectionFactory.createConnection();
+//        }catch (Exception exception){
+//            System.out.printf("NU");
+//        }
+//    }
 
 }

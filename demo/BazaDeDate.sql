@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS user (
     department VARCHAR(45) NOT NULL,
     phoneNumber varchar(10) 
 );
+
 drop table if exists appointment;
 CREATE TABLE IF NOT EXISTS appointment (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
