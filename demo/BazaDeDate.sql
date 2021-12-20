@@ -11,7 +11,8 @@ CREATE TABLE IF NOT EXISTS user (
     password VARCHAR(45) NOT NULL,
     email VARCHAR(45) NOT NULL,
     role VARCHAR(45) NOT NULL,
-    department VARCHAR(45) NOT NULL,
+    drugsRecipe varchar(45),
+    department VARCHAR(45),
     phoneNumber varchar(10) 
 );
 

@@ -5,21 +5,23 @@ public class User {
     private int id;
     private String firstName;
     private String lastName;
-    private String username;
+    private String userName;
     private String password;
     private String email;
     private String role;
+    private String drugsRecipe;
     private String department;
     private String phoneNumber;
 
-    public User(int id, String firstName, String lastName, String username, String password, String email, String role, String department, String phoneNumber) {
+    public User(int id, String firstName, String lastName, String userName, String password, String email, String role, String drugsRecipe, String department, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.username = username;
+        this.userName = userName;
         this.password = password;
         this.email = email;
         this.role = role;
+        this.drugsRecipe = drugsRecipe;
         this.department = department;
         this.phoneNumber = phoneNumber;
     }
@@ -48,12 +50,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return username;
+    public String getuserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setuserName(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
@@ -80,6 +82,14 @@ public class User {
         this.role = role;
     }
 
+    public String getDrugsRecipe() {
+        return drugsRecipe;
+    }
+
+    public void setDrugsRecipe(String drugsRecipe) {
+        this.drugsRecipe = drugsRecipe;
+    }
+
     public String getDepartment() {
         return department;
     }
@@ -102,7 +112,7 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
+                ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", role='" + role + '\'' +

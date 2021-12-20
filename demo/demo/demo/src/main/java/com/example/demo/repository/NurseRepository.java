@@ -1,17 +1,12 @@
 package com.example.demo.repository;
 
-
 import com.example.demo.connection.ConnectionFactory;
 import com.example.demo.model.User;
-import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 
-@Repository
-public class DoctorRepository {
-
+public class NurseRepository {
     private static final String insertStatementString = "INSERT INTO user (firstName,lastName)" + " VALUES (?,?)";
-
     public int addPatient(User user) {
         Connection dbConnection = ConnectionFactory.getConnection();
 
@@ -41,10 +36,9 @@ public class DoctorRepository {
         sb.append("Delete ");
         sb.append("from ");
         sb.append("user");
-        sb.append(" where id" + " = ? ");
+        sb.append(" where id" + " = ?");
         return sb.toString();
     }
-
     public void deletePatient(int id) {
         Connection connection = ConnectionFactory.getConnection();
         PreparedStatement statement = null;
@@ -63,7 +57,7 @@ public class DoctorRepository {
         }
     }
 
-    private String createSelectQueryForPatients() {
+    private String createSelectQuery() {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ");
         sb.append(" * ");
@@ -74,7 +68,7 @@ public class DoctorRepository {
 
     public ResultSet showPatients() {
         Connection connection = ConnectionFactory.getConnection();
-        String rezSelect = createSelectQueryForPatients();
+        String rezSelect = createSelectQuery();
         try {
             Statement statement = connection.createStatement();
             statement.execute(rezSelect);
@@ -85,55 +79,4 @@ public class DoctorRepository {
         }
         return null;
     }
-
-    private String createSelectQueryForNurses() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("SELECT ");
-        sb.append(" * ");
-        sb.append(" FROM ");
-        sb.append("user WHERE role = 'nurse'");
-        return sb.toString();
-    }
-
-    public ResultSet showNurses() {
-        Connection connection = ConnectionFactory.getConnection();
-        String rezSelect = createSelectQueryForNurses();
-        try {
-            Statement statement = connection.createStatement();
-            statement.execute(rezSelect);
-            ResultSet rs = statement.getResultSet();
-            return rs;
-        } catch (SQLException e) {
-//            LOGGER.log(Level.WARNING, type.getSimpleName() + "Dao (select): " + e.getMessage());
-        }
-        return null;
-    }
-
-    private String updateQuery() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("update ");
-        sb.append("user" + " set ");
-        sb.append("drugsRecipe = ?");
-        sb.append(" where id = ?");
-        return sb.toString();
-    }
-
-    public void edit(int id, String drugsRecipe) {
-        Connection connection = ConnectionFactory.getConnection();
-        PreparedStatement statement = null;
-        try {
-//            Field[] fields = type.getDeclaredFields();
-            //System.out.println(updateQuery(fields));
-            statement = connection.prepareStatement(updateQuery());
-            statement.setString(2, String.valueOf(id));
-            statement.setString(1, drugsRecipe);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-//            LOGGER.log(Level.WARNING, type.getSimpleName()+"Dao (edit): " + e.getMessage());
-        } finally {
-            ConnectionFactory.close(statement);
-            ConnectionFactory.close(connection);
-        }
-    }
-
 }
