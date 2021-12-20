@@ -3,6 +3,7 @@ package com.example.demo.repository;
 
 import com.example.demo.connection.ConnectionFactory;
 import com.example.demo.model.User;
+import com.mysql.cj.result.Field;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -79,6 +80,18 @@ public class DoctorRepository {
             Statement statement = connection.createStatement();
             statement.execute(rezSelect);
             ResultSet rs = statement.getResultSet();
+//            while(rs.next()){
+//                //Retrieve by column name
+//                String id = rs.getString("id");
+//                String nume = rs.getString("firstName");
+//                String prenume = rs.getString("lastName");
+//
+//                String s = id + "  " + nume + " " + prenume;
+//                System.out.println(s);
+//            }
+
+
+
             return rs;
         } catch (SQLException e) {
 //            LOGGER.log(Level.WARNING, type.getSimpleName() + "Dao (select): " + e.getMessage());
