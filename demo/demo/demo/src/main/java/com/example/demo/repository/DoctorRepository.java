@@ -118,12 +118,10 @@ public class DoctorRepository {
         return sb.toString();
     }
 
-    public void edit(int id, String drugsRecipe) {
+    public void updateDrugsRecipe(int id, String drugsRecipe) {
         Connection connection = ConnectionFactory.getConnection();
         PreparedStatement statement = null;
         try {
-//            Field[] fields = type.getDeclaredFields();
-            //System.out.println(updateQuery(fields));
             statement = connection.prepareStatement(updateQuery());
             statement.setString(2, String.valueOf(id));
             statement.setString(1, drugsRecipe);

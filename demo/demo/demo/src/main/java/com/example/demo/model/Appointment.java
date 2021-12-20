@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.util.Date;
 
+
 public class Appointment {
 
     private int id;
@@ -15,6 +16,7 @@ public class Appointment {
         this.doctorId = doctorId;
         this.date = date;
     }
+
 
     public int getId() {
         return id;
