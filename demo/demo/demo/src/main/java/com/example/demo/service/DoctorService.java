@@ -26,8 +26,8 @@ public class DoctorService {
         doctorRepository.addRecipe(recipe);
     }
 
-    public void updateRecipe(String usernamePatient, String listOfDrugs) {
-        doctorRepository.updateRecipe(usernamePatient, listOfDrugs);
+    public void updateRecipe(int id, String listOfDrugs) {
+        doctorRepository.updateRecipe(id, listOfDrugs);
     }
 
     public void deletePatient(String username) {
@@ -35,7 +35,7 @@ public class DoctorService {
     }
 
     public ArrayList<String> showPatients() {
-        ResultSet rs = doctorRepository.showNurses();
+        ResultSet rs = doctorRepository.showPatients();
         ArrayList<String> showP = new ArrayList<>();
         try {
             while (rs.next()) {

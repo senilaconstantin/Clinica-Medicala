@@ -6,7 +6,7 @@ import com.example.demo.model.User;
 import java.sql.*;
 
 public class NurseRepository {
-    private static final String insertStatementString =  "INSERT INTO user (firstName, lastName, username, password, role, phoneNumber)" + " VALUES (?,?,?,?,?,?)";
+    private static final String insertStatementString = "INSERT INTO user (firstName, lastName, username, password, role, phoneNumber)" + " VALUES (?,?,?,?,?,?)";
 
     public void addPatient(User user) {
         Connection dbConnection = ConnectionFactory.getConnection();
@@ -39,6 +39,7 @@ public class NurseRepository {
         sb.append(" where id" + " = ?");
         return sb.toString();
     }
+
     public void deletePatient(int id) {
         Connection connection = ConnectionFactory.getConnection();
         PreparedStatement statement = null;
@@ -50,7 +51,7 @@ public class NurseRepository {
             statement.setString(1, String.valueOf(id));
             statement.executeUpdate();
         } catch (SQLException e) {
-//            LOGGER.log(Level.WARNING, type.getSimpleName() + "Dao (delete): " + e.getMessage());
+            e.printStackTrace();
         } finally {
             ConnectionFactory.close(statement);
             ConnectionFactory.close(connection);
@@ -75,7 +76,7 @@ public class NurseRepository {
             ResultSet rs = statement.getResultSet();
             return rs;
         } catch (SQLException e) {
-//            LOGGER.log(Level.WARNING, type.getSimpleName() + "Dao (select): " + e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }

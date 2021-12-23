@@ -17,22 +17,22 @@ CREATE TABLE IF NOT EXISTS user (
 drop table if exists recipe;
 CREATE TABLE IF NOT EXISTS recipe (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
-    usernameDoctor VARCHAR(45) NOT NULL UNIQUE,
-    usernamePatient VARCHAR(45) NOT NULL UNIQUE,
-    listOfDrugs VARCHAR(45) NOT NULL
+    usernameDoctor VARCHAR(45) NOT NULL,
+    usernamePatient VARCHAR(45) NOT NULL,
+    listOfDrugs VARCHAR(1000) NOT NULL
 );
 drop table if exists doctorNotify;
 CREATE TABLE IF NOT EXISTS doctorNotify (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
-    usernameDoctor VARCHAR(45) NOT NULL UNIQUE,
+    usernameDoctor VARCHAR(45) NOT NULL,
     message VARCHAR(45) NOT NULL
 );
 
 drop table if exists appointment;
 CREATE TABLE IF NOT EXISTS appointment (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
-	usernameDoctor VARCHAR(45) NOT NULL UNIQUE,
-    usernamePatient VARCHAR(45) NOT NULL UNIQUE,
+	usernameDoctor VARCHAR(45) NOT NULL,
+    usernamePatient VARCHAR(45) NOT NULL,
     date Date
 );
 

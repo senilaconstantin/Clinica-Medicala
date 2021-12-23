@@ -29,7 +29,7 @@ public class PatientRepository {
             ResultSet rs = statement.getResultSet();
             return rs;
         } catch (SQLException e) {
-//            LOGGER.log(Level.WARNING, type.getSimpleName() + "Dao (select): " + e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
@@ -39,10 +39,8 @@ public class PatientRepository {
 
     public void addAppointment(Appointment appointment) {
         Connection dbConnection = ConnectionFactory.getConnection();
-
         PreparedStatement insertStatement = null;
 
-        int insertedId = -1;
         try {
             insertStatement = dbConnection.prepareStatement(insertAppointment, Statement.RETURN_GENERATED_KEYS);
             insertStatement.setString(1, appointment.getUsernameDoctor());
@@ -94,7 +92,7 @@ public class PatientRepository {
             ResultSet rs = statement.getResultSet();
             return rs;
         } catch (SQLException e) {
-//            LOGGER.log(Level.WARNING, type.getSimpleName() + "Dao (select): " + e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }

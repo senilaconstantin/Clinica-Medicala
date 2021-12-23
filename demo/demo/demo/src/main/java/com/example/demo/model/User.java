@@ -46,14 +46,6 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getusername() {
-        return username;
-    }
-
-    public void setusername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
         return password;
     }

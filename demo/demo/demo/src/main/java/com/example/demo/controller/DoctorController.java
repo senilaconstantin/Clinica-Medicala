@@ -31,12 +31,12 @@ public class DoctorController {
         doctorService.addRecipe(recipe);
     }
 
-    @PutMapping("/updateRecipe")
-    public void updateRecipe(@RequestBody String usernamePatient, String listOfDrugs) {
-        doctorService.updateRecipe(usernamePatient, listOfDrugs);
+    @PutMapping("/updateRecipe/{id}")
+    public void updateRecipe(@RequestBody String listOfDrugs, @PathVariable int id) {
+        doctorService.updateRecipe(id, listOfDrugs);
     }
 
-    @DeleteMapping("/deletePatient/{id}")
+    @DeleteMapping("/deletePatient/{username}")
     public void deletePatient(@PathVariable String username) {
         doctorService.deletePatient(username);
     }
