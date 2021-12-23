@@ -6,8 +6,9 @@ import com.example.demo.model.User;
 import java.sql.*;
 
 public class NurseRepository {
-    private static final String insertStatementString = "INSERT INTO user (firstName,lastName)" + " VALUES (?,?)";
-    public int addPatient(User user) {
+    private static final String insertStatementString =  "INSERT INTO user (firstName, lastName, username, password, role, phoneNumber)" + " VALUES (?,?,?,?,?,?)";
+
+    public void addPatient(User user) {
         Connection dbConnection = ConnectionFactory.getConnection();
 
         PreparedStatement insertStatement = null;
@@ -16,19 +17,18 @@ public class NurseRepository {
             insertStatement = dbConnection.prepareStatement(insertStatementString, Statement.RETURN_GENERATED_KEYS);
             insertStatement.setString(1, user.getFirstName());
             insertStatement.setString(2, user.getLastName());
+            insertStatement.setString(3, user.getUsername());
+            insertStatement.setString(4, user.getPassword());
+            insertStatement.setString(5, user.getRole());
+            insertStatement.setString(6, user.getPhoneNumber());
             insertStatement.executeUpdate();
 
-            ResultSet rs = insertStatement.getGeneratedKeys();
-            if (rs.next()) {
-                insertedId = rs.getInt(1);
-            }
         } catch (SQLException e) {
-            //LOGGER.log(Level.WARNING, "ClientDAO:insert " + e.getMessage());
+            e.printStackTrace();
         } finally {
             ConnectionFactory.close(insertStatement);
             ConnectionFactory.close(dbConnection);
         }
-        return insertedId;
     }
 
     private String createDeleteQuery() {

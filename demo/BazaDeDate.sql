@@ -5,22 +5,37 @@ USE ClinicaMedicala;
 drop table if exists user;
 CREATE TABLE IF NOT EXISTS user (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
-	firstName VARCHAR(45) NOT NULL,
-	lastName VARCHAR(45) NOT NULL,
-	userName VARCHAR(45) NOT NULL,
+    firstName VARCHAR(45) NOT NULL,
+    lastName VARCHAR(45) NOT NULL,
+    username VARCHAR(45) NOT NULL UNIQUE,
     password VARCHAR(45) NOT NULL,
-    email VARCHAR(45) NOT NULL,
     role VARCHAR(45) NOT NULL,
-    drugsRecipe varchar(45),
-    department VARCHAR(45),
+    enabled  bit(1) DEFAULT NULL,
     phoneNumber varchar(10) 
+);
+
+drop table if exists recipe;
+CREATE TABLE IF NOT EXISTS recipe (
+    id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
+    usernameDoctor VARCHAR(45) NOT NULL UNIQUE,
+    usernamePatient VARCHAR(45) NOT NULL UNIQUE,
+    listOfDrugs VARCHAR(45) NOT NULL
+);
+drop table if exists doctorNotify;
+CREATE TABLE IF NOT EXISTS doctorNotify (
+    id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
+    usernameDoctor VARCHAR(45) NOT NULL UNIQUE,
+    message VARCHAR(45) NOT NULL
 );
 
 drop table if exists appointment;
 CREATE TABLE IF NOT EXISTS appointment (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
-	patientId Int not null,
-	doctorId Int not null,
-    date Date	
+	usernameDoctor VARCHAR(45) NOT NULL UNIQUE,
+    usernamePatient VARCHAR(45) NOT NULL UNIQUE,
+    date Date
 );
 
+INSERT INTO clinicamedicala.user (id, firstName, lastName, username, password, role, enabled, phoneNumber) VALUES ('1', 'Ana', 'Vultur', 'ana@v', '12345', 'DOCTOR', b'1', '0741753590');
+INSERT INTO clinicamedicala.user (firstName, lastName, username, password, role, enabled, phoneNumber) VALUES ('Constantin', 'Senila', 'senila@c', '11111', 'PATIENT', b'1', '0789786746');
+INSERT INTO clinicamedicala.user (firstName, lastName, username, password, role, enabled, phoneNumber) VALUES ('Aura', 'Petricele', 'aura@p', 'parola', 'NURSE', b'1', '0711223423');

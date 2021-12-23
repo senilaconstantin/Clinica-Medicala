@@ -1,22 +1,17 @@
 package com.example.demo.model;
 
-import java.util.Date;
-
-
-public class Appointment {
-
+public class Recipe {
     private int id;
     private String usernameDoctor;
     private String usernamePatient;
-    private Date date;
+    private String listOfDrugs;
 
-    public Appointment(int id, String usernamePatient, String usernameDoctor, Date date) {
+    public Recipe(int id, String usernameDoctor, String usernamePatient, String listOfDrugs) {
         this.id = id;
         this.usernameDoctor = usernameDoctor;
         this.usernamePatient = usernamePatient;
-        this.date = date;
+        this.listOfDrugs = listOfDrugs;
     }
-
 
     public int getId() {
         return id;
@@ -42,21 +37,11 @@ public class Appointment {
         this.usernamePatient = usernamePatient;
     }
 
-    public Date getDate() {
-        return date;
+    public String getListOfDrugs() {
+        return listOfDrugs;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
-    }
-
-    @Override
-    public String toString() {
-        return "Appointment{" +
-                "id=" + id +
-                ", usernameDoctor='" + usernameDoctor + '\'' +
-                ", usernamePatient='" + usernamePatient + '\'' +
-                ", date=" + date +
-                '}';
+    public void setListOfDrugs(String listOfDrugs) {
+        this.listOfDrugs = listOfDrugs;
     }
 }

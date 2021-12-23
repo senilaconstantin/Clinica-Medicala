@@ -5,24 +5,20 @@ public class User {
     private int id;
     private String firstName;
     private String lastName;
-    private String userName;
+    private String username;
     private String password;
-    private String email;
     private String role;
-    private String drugsRecipe;
-    private String department;
+    private boolean enabled;
     private String phoneNumber;
 
-    public User(int id, String firstName, String lastName, String userName, String password, String email, String role, String drugsRecipe, String department, String phoneNumber) {
+    public User(int id, String firstName, String lastName, String username, String password, String role, boolean enabled, String phoneNumber) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
+        this.username = username;
         this.password = password;
-        this.email = email;
         this.role = role;
-        this.drugsRecipe = drugsRecipe;
-        this.department = department;
+        this.enabled = enabled;
         this.phoneNumber = phoneNumber;
     }
 
@@ -50,12 +46,12 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getuserName() {
-        return userName;
+    public String getusername() {
+        return username;
     }
 
-    public void setuserName(String userName) {
-        this.userName = userName;
+    public void setusername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -66,14 +62,6 @@ public class User {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getRole() {
         return role;
     }
@@ -82,24 +70,26 @@ public class User {
         this.role = role;
     }
 
-    public String getDrugsRecipe() {
-        return drugsRecipe;
-    }
 
-    public void setDrugsRecipe(String drugsRecipe) {
-        this.drugsRecipe = drugsRecipe;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
 
     public String getPhoneNumber() {
         return phoneNumber;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -112,11 +102,9 @@ public class User {
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", userName='" + userName + '\'' +
+                ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
                 ", role='" + role + '\'' +
-                ", department='" + department + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }
