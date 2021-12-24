@@ -6,6 +6,7 @@ import com.example.demo.model.Recipe;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
 
 @Repository
 public class PatientRepository {
@@ -13,22 +14,22 @@ public class PatientRepository {
     private String createSelectQueryForRecipe() {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ");
-        sb.append("listOfDrugs");
+        sb.append("*");
         sb.append(" FROM ");
-        sb.append("recipe WHERE usernamePatient = ? and usernameDoctor = ?");
+        sb.append("recipe WHERE usernamePatient = ?");
         return sb.toString();
     }
 
-    public ResultSet showRecipe(String usernamePatient, String usernameDoctor) {
+    public ResultSet showRecipe(String usernamePatient) {
         Connection connection = ConnectionFactory.getConnection();
         String rezSelect = createSelectQueryForRecipe();
         PreparedStatement statement = null;
         try {
-            statement = connection.prepareStatement(rezSelect, Statement.RETURN_GENERATED_KEYS);
+            statement = connection.prepareStatement(rezSelect);
             statement.setString(1, usernamePatient);
-            statement.setString(2, usernameDoctor);
-            statement.execute(rezSelect);
-            ResultSet rs = statement.getResultSet();
+//            System.out.println(statement);
+//            statement.execute(rezSelect);
+            ResultSet rs = statement.executeQuery();
             return rs;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -41,14 +42,13 @@ public class PatientRepository {
     public void addAppointment(Appointment appointment) {
         Connection dbConnection = ConnectionFactory.getConnection();
         PreparedStatement insertStatement = null;
-
+        SimpleDateFormat dt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
             insertStatement = dbConnection.prepareStatement(insertAppointment, Statement.RETURN_GENERATED_KEYS);
             insertStatement.setString(1, appointment.getUsernameDoctor());
             insertStatement.setString(2, appointment.getUsernamePatient());
-            insertStatement.setString(3, String.valueOf(appointment.getDate()));
+            insertStatement.setString(3, dt.format(appointment.getDate()));
             insertStatement.executeUpdate();
-
             insertDoctorNotify(dbConnection, appointment);
 
         } catch (SQLException e) {
@@ -76,22 +76,21 @@ public class PatientRepository {
     private String createSelectQueryForDetails() {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ");
-        sb.append("firstName, lastName, userName, password, email, phoneNumber");
+        sb.append("*");
         sb.append(" FROM ");
-        sb.append("user WHERE userName = ? and password = ?");
+        sb.append("user WHERE username = ?");
         return sb.toString();
     }
 
-    public ResultSet showDetails(String userName, String password) {
+    public ResultSet showDetails(String username) {
         Connection connection = ConnectionFactory.getConnection();
         String rezSelect = createSelectQueryForDetails();
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(rezSelect, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, userName);
-            statement.setString(2, password);
-            statement.execute(rezSelect);
-            ResultSet rs = statement.getResultSet();
+            statement.setString(1, username);
+//            statement.execute(rezSelect);
+            ResultSet rs = statement.executeQuery();
             return rs;
         } catch (SQLException e) {
             e.printStackTrace();

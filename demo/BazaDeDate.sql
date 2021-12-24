@@ -25,7 +25,7 @@ drop table if exists doctorNotify;
 CREATE TABLE IF NOT EXISTS doctorNotify (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
     usernameDoctor VARCHAR(45) NOT NULL,
-    message VARCHAR(45) NOT NULL
+    message VARCHAR(10000) NOT NULL
 );
 
 drop table if exists appointment;
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS appointment (
     id INT NOT NULL AUTO_INCREMENT UNIQUE PRIMARY KEY ,
 	usernameDoctor VARCHAR(45) NOT NULL,
     usernamePatient VARCHAR(45) NOT NULL,
-    date Date
+    date DateTime
 );
 
 INSERT INTO clinicamedicala.user (id, firstName, lastName, username, password, role, enabled, phoneNumber) VALUES ('1', 'Ana', 'Vultur', 'ana@v', '12345', 'DOCTOR', b'1', '0741753590');

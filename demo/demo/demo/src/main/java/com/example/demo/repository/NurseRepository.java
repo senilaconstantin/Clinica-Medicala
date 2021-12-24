@@ -67,7 +67,7 @@ public class NurseRepository {
         sb.append("Delete ");
         sb.append("from ");
         sb.append("user");
-        sb.append(" where username" + " = ?");
+        sb.append(" where username = ?");
         return sb.toString();
     }
 
