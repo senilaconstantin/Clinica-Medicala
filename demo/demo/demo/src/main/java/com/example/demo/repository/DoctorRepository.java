@@ -123,7 +123,7 @@ public class DoctorRepository {
         return sb.toString();
     }
 
-    public boolean verifyUsername(String username) {
+    private boolean verifyUsername(String username) {
         Connection connection = ConnectionFactory.getConnection();
         String rezSelect = createVerifyUsernameString();
         PreparedStatement statement = null;

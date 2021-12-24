@@ -3,9 +3,11 @@ package com.example.demo.repository;
 import com.example.demo.connection.ConnectionFactory;
 import com.example.demo.model.Appointment;
 import com.example.demo.model.Recipe;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 
+@Repository
 public class PatientRepository {
 
     private String createSelectQueryForRecipe() {
@@ -17,7 +19,7 @@ public class PatientRepository {
         return sb.toString();
     }
 
-    public ResultSet drugsRecipe(String usernamePatient, String usernameDoctor) {
+    public ResultSet showRecipe(String usernamePatient, String usernameDoctor) {
         Connection connection = ConnectionFactory.getConnection();
         String rezSelect = createSelectQueryForRecipe();
         PreparedStatement statement = null;
@@ -35,7 +37,6 @@ public class PatientRepository {
     }
 
     private static final String insertAppointment = "INSERT INTO appointment (usernameDoctor, usernamePatient, date)" + " VALUES (?,?,?)";
-    private static final String insertDoctorNotify = "INSERT INTO doctorNotify (usernameDoctor, message)" + " VALUES (?,?)";
 
     public void addAppointment(Appointment appointment) {
         Connection dbConnection = ConnectionFactory.getConnection();
@@ -58,6 +59,7 @@ public class PatientRepository {
         }
     }
 
+    private static final String insertDoctorNotify = "INSERT INTO doctorNotify (usernameDoctor, message)" + " VALUES (?,?)";
     private void insertDoctorNotify(Connection dbConnection, Appointment appointment) {
         PreparedStatement insertStatement1 = null;
         try {

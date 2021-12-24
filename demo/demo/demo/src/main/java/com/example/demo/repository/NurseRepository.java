@@ -2,9 +2,11 @@ package com.example.demo.repository;
 
 import com.example.demo.connection.ConnectionFactory;
 import com.example.demo.model.User;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 
+@Repository
 public class NurseRepository {
     private static final String insertStatementString = "INSERT INTO user (firstName, lastName, username, password, role, phoneNumber)" + " VALUES (?,?,?,?,?,?)";
 
@@ -15,13 +17,17 @@ public class NurseRepository {
         int insertedId = -1;
         try {
             insertStatement = dbConnection.prepareStatement(insertStatementString, Statement.RETURN_GENERATED_KEYS);
-            insertStatement.setString(1, user.getFirstName());
-            insertStatement.setString(2, user.getLastName());
-            insertStatement.setString(3, user.getUsername());
-            insertStatement.setString(4, user.getPassword());
-            insertStatement.setString(5, user.getRole());
-            insertStatement.setString(6, user.getPhoneNumber());
-            insertStatement.executeUpdate();
+            if (verifyUsername(user.getUsername())) {
+                insertStatement.setString(1, user.getFirstName());
+                insertStatement.setString(2, user.getLastName());
+                insertStatement.setString(3, user.getUsername());
+                insertStatement.setString(4, user.getPassword());
+                insertStatement.setString(5, user.getRole());
+                insertStatement.setString(6, user.getPhoneNumber());
+                insertStatement.executeUpdate();
+            } else
+                System.out.println("nu se poate adauga pt  ca este deja unu!");///pe interfata
+
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -30,17 +36,42 @@ public class NurseRepository {
             ConnectionFactory.close(dbConnection);
         }
     }
+    private String createVerifyUsernameString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT ");
+        sb.append(" username ");
+        sb.append(" FROM ");
+        sb.append("user WHERE username = ?");
+        return sb.toString();
+    }
+
+    private boolean verifyUsername(String username) {
+        Connection connection = ConnectionFactory.getConnection();
+        String rezSelect = createVerifyUsernameString();
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = connection.prepareStatement(rezSelect);
+            statement.setString(1, username);
+            rs = statement.executeQuery();
+            if (!rs.next())
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     private String createDeleteQuery() {
         StringBuilder sb = new StringBuilder();
         sb.append("Delete ");
         sb.append("from ");
         sb.append("user");
-        sb.append(" where id" + " = ?");
+        sb.append(" where username" + " = ?");
         return sb.toString();
     }
 
-    public void deletePatient(int id) {
+    public void deletePatient(String username) {
         Connection connection = ConnectionFactory.getConnection();
         PreparedStatement statement = null;
         String rezDelete = createDeleteQuery();
@@ -48,7 +79,7 @@ public class NurseRepository {
         //System.out.println(rezDelete);
         try {
             statement = connection.prepareStatement(rezDelete);
-            statement.setString(1, String.valueOf(id));
+            statement.setString(1, username);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
