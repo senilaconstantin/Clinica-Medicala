@@ -48,4 +48,9 @@ public class DoctorController {
     public ArrayList<String> showNurses()  {
         return doctorService.showNurses();
     }
+
+    @GetMapping("/notifyDoctor/{username}")
+    public ArrayList<String> notifyDoctor(@PathVariable String username)  {
+        return doctorService.notifyDoctor(username);
+    }
 }

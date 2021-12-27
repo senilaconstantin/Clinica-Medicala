@@ -140,6 +140,32 @@ public class DoctorRepository {
         return false;
     }
 
+    private String createNotifyDoctor() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT ");
+        sb.append(" message ");
+        sb.append(" FROM ");
+        sb.append("doctorNotify WHERE usernameDoctor = ?");
+        return sb.toString();
+    }
+
+    public ResultSet notifyDoctor(String username) {
+        Connection connection = ConnectionFactory.getConnection();
+        String rezSelect = createNotifyDoctor();
+        PreparedStatement statement = null;
+        ResultSet rs = null;
+        try {
+            statement = connection.prepareStatement(rezSelect);
+            statement.setString(1, username);
+            rs = statement.executeQuery();
+           return rs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
     private String createSelectQueryForPatients() {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ");

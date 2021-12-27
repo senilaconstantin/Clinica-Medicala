@@ -80,4 +80,17 @@ public class DoctorService {
         }
         return showN;
     }
+    public ArrayList<String> notifyDoctor(String username) {
+        ResultSet rs = doctorRepository.notifyDoctor(username);
+        ArrayList<String> showNotify = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                String message = rs.getString("message");
+                showNotify.add(message);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return showNotify;
+    }
 }
