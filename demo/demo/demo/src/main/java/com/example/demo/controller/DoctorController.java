@@ -24,6 +24,11 @@ public class DoctorController {
         doctorService.addPatient(user);
     }
 
+    @PostMapping("/addNurse")
+    public void addNurse(@RequestBody User user) {
+        doctorService.addNurse(user);
+    }
+
     @PostMapping("/addRecipe")
     public void addRecipe(@RequestBody Recipe recipe) {
         doctorService.addRecipe(recipe);
@@ -39,18 +44,23 @@ public class DoctorController {
         doctorService.deletePatient(username);
     }
 
+    @DeleteMapping("/deleteNurse/{username}")
+    public void deleteNurse(@PathVariable String username) {
+        doctorService.deleteNurse(username);
+    }
+
     @GetMapping("/showPatients")
     public ArrayList<String> showPatients() {
         return doctorService.showPatients();
     }
 
     @GetMapping("/showNurses")
-    public ArrayList<String> showNurses()  {
+    public ArrayList<String> showNurses() {
         return doctorService.showNurses();
     }
 
     @GetMapping("/notifyDoctor/{username}")
-    public ArrayList<String> notifyDoctor(@PathVariable String username)  {
+    public ArrayList<String> notifyDoctor(@PathVariable String username) {
         return doctorService.notifyDoctor(username);
     }
 }

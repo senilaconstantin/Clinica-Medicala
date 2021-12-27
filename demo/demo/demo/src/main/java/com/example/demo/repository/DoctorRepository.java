@@ -26,7 +26,7 @@ public class DoctorRepository {
                 insertStatement.setString(2, user.getLastName());
                 insertStatement.setString(3, user.getUsername());
                 insertStatement.setString(4, user.getPassword());
-                insertStatement.setString(5, user.getRole());
+                insertStatement.setString(5, "PATIENT");
                 insertStatement.setString(6, user.getPhoneNumber());
                 insertStatement.executeUpdate();
             } else
@@ -39,6 +39,33 @@ public class DoctorRepository {
             ConnectionFactory.close(dbConnection);
         }
     }
+
+    public void addNurse(User user) {
+        Connection dbConnection = ConnectionFactory.getConnection();
+
+        PreparedStatement insertStatement = null;
+        int insertedId = -1;
+        try {
+            insertStatement = dbConnection.prepareStatement(insertStatementString, Statement.RETURN_GENERATED_KEYS);
+            if (verifyUsername(user.getUsername())) {
+                insertStatement.setString(1, user.getFirstName());
+                insertStatement.setString(2, user.getLastName());
+                insertStatement.setString(3, user.getUsername());
+                insertStatement.setString(4, user.getPassword());
+                insertStatement.setString(5, "NURSE");
+                insertStatement.setString(6, user.getPhoneNumber());
+                insertStatement.executeUpdate();
+            } else
+                System.out.println("nu se poate adauga pt  ca este deja unu!");///pe interfata
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionFactory.close(insertStatement);
+            ConnectionFactory.close(dbConnection);
+        }
+    }
+
 
     private static final String insertRecipe = "INSERT INTO recipe (usernameDoctor, usernamePatient, listOfDrugs)" + " VALUES (?,?,?)";
 
@@ -114,6 +141,22 @@ public class DoctorRepository {
         }
     }
 
+    public void deleteNurse(String username) {
+        Connection connection = ConnectionFactory.getConnection();
+        PreparedStatement statement = null;
+        String rezDelete = createDeleteQuery();
+        try {
+            statement = connection.prepareStatement(rezDelete);
+            statement.setString(1, username);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectionFactory.close(statement);
+            ConnectionFactory.close(connection);
+        }
+    }
+
     private String createVerifyUsernameString() {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT ");
@@ -158,7 +201,7 @@ public class DoctorRepository {
             statement = connection.prepareStatement(rezSelect);
             statement.setString(1, username);
             rs = statement.executeQuery();
-           return rs;
+            return rs;
         } catch (SQLException e) {
             e.printStackTrace();
         }

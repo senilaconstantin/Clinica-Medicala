@@ -22,6 +22,10 @@ public class DoctorService {
         doctorRepository.addPatient(user);
     }
 
+    public void addNurse(User user) {
+        doctorRepository.addNurse(user);
+    }
+
     public void addRecipe(Recipe recipe) {
         doctorRepository.addRecipe(recipe);
     }
@@ -32,6 +36,10 @@ public class DoctorService {
 
     public void deletePatient(String username) {
         doctorRepository.deletePatient(username);
+    }
+
+    public void deleteNurse(String username) {
+        doctorRepository.deleteNurse(username);
     }
 
     public ArrayList<String> showPatients() {
@@ -49,7 +57,7 @@ public class DoctorService {
                 String phoneNumber = rs.getString("phoneNumber");
 
 
-                String s = id + "  " + nume + " " + prenume + " " + username+" "+ password + " " + role + " " + phoneNumber;
+                String s = id + "  " + nume + " " + prenume + " " + username + " " + password + " " + role + " " + phoneNumber;
                 showP.add(s);
             }
         } catch (SQLException e) {
@@ -72,7 +80,7 @@ public class DoctorService {
                 String role = rs.getString("role");
                 String phoneNumber = rs.getString("phoneNumber");
 
-                String s = id + "  " + nume + " " + prenume + " " + username+" "+ password + " " + role + " " + phoneNumber;
+                String s = id + "  " + nume + " " + prenume + " " + username + " " + password + " " + role + " " + phoneNumber;
                 showN.add(s);
             }
         } catch (SQLException e) {
@@ -80,6 +88,7 @@ public class DoctorService {
         }
         return showN;
     }
+
     public ArrayList<String> notifyDoctor(String username) {
         ResultSet rs = doctorRepository.notifyDoctor(username);
         ArrayList<String> showNotify = new ArrayList<>();
